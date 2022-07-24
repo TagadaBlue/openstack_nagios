@@ -62,19 +62,18 @@ total = int(entry['MemTotal'])
 
 def mem_load():
     # change to percentage
-    use_percent = 100 - ((free * 100) / total)
+    use_percent = round(100 - ((free * 100) / total),2)
     if use_percent >= critical:
-        print "CRITICAL: memory (ram) over", use_percent, '%', "used"
+        print ("CRITICAL: memory (ram) over", use_percent, '%', "used")
         sys.exit(CRIT)
     elif warning <= use_percent < critical:
-        print "WARNING: memory (ram) over", use_percent, '%', "used"
+        print ("WARNING: memory (ram) over", use_percent, '%', "used")
         sys.exit(WARN)
     elif use_percent < warning:
-        print "OK: memory is only", use_percent, '%', "used"
+        print ("OK: memory is only", use_percent, '%', "used")
         sys.exit(OK)
     else:
         print ("UNKNOWN: unable to process free memory\n", use_percent)
         sys.exit(UNKNOWN)
-
 
 mem_load()
